@@ -31,6 +31,8 @@ var gifs = ["1.gif", "2.gif","3.gif","4.jpg"]
 var currentQuestion;
 var correct;
 var incorrect;
+var answered;
+var unanswered;
 
 //on click for start
 $("#start").on("click", function(){
@@ -64,7 +66,7 @@ function newQuestion() {
     $("#gif").empty();
     $("#message").empty();
     $("#time-box").show();
-
+    answered= true;
 
     $("#currentQuestionNum").html("Question #"+(currentQuestion +1) + " out of " + questions.length);
     $(".question").html(questions[currentQuestion].question)
@@ -90,8 +92,9 @@ function newQuestion() {
 
 //function to countdown at each question
 function countdown() {
-    seconds = 15; 
+    seconds = 2; 
     $('#timeLeft').html("Time Remaining: " + seconds);
+    answered = true;
     counter = setInterval(showCountdown, 1000)
 }
 function showCountdown() {
@@ -99,15 +102,15 @@ function showCountdown() {
     $('#timeLeft').html("Time Remaining: " + seconds );
     if (seconds <= 0) {
         clearInterval(counter);
-  //      return
-   //     answered = false;
-         answerStage();
+        answered = false;
+        answerStage();
     }
 }
 
 function countdownAnswer() {
     seconds = 1;
     $('#timeLeft').html("Time Remaining: " + seconds);
+    answered = true;
     counter = setInterval(showCountdownAnswer, 1000)
 }
 function showCountdownAnswer() {
@@ -116,13 +119,13 @@ function showCountdownAnswer() {
     if (seconds <= 0) {
         clearInterval(counter);
         scorePage ();
-        //      return
-        //     answered = false;
+         answered = false;
     }
 }
 function countdownAnswerNext() {
     seconds = 1;
-    $('#timeLeft').html("Time Remaining: " + seconds);
+    $('#timeLeft').html("Time Remaining: " + seconds); 
+    answered = true;
     counter = setInterval(showCountdownAnswerNext, 1000)
 }
 function showCountdownAnswerNext() {
@@ -131,26 +134,25 @@ function showCountdownAnswerNext() {
     if (seconds <= 0) {
         clearInterval(counter);
         newQuestion();
-        //      return
-        //     answered = false;
+         answered = false;
     }
 }
 function answerStage() {
     $ (".question").empty();
     $(".choices").empty();
  //   $("#gif").html('<img src = "assets/images/' + gifs[currentQuestion] + '.gif" width = "400px">');  //" and ' are important here
-    $("#gif").html('<img src = "assets/images/' + gifs[currentQuestion] +'" width = "400px" >');
+    $("#gif").html('<img src = "assets/images/' + gifs[currentQuestion] +'" >');
     $('#timeLeft').html("Time Remaining: " + seconds);
     var rightAnswerText= questions[currentQuestion].answerChoice[questions[currentQuestion].answer]
     var rightAnswerIndex= questions[currentQuestion].answer
     
     //check if correct or incorrect
-    if (userSelect === rightAnswerIndex) {
+    if ((userSelect === rightAnswerIndex) && (answered == true)){
         console.log("right!")
         correct +=1;
         $("#message").text("Correct!")
     }
-    else if (userSelect != rightAnswerIndex) {
+    else if ((userSelect != rightAnswerIndex) && (answered == true)){
         incorrect +=1;
         $("#message").html("You are wrong! ")
         $("#message").append("The correct answer is: "+ rightAnswerText)
@@ -159,6 +161,7 @@ function answerStage() {
         unanswered +=1;
         $("#message").html("You didn't answer! ")
         $("#message").append("The correct answer is: " + rightAnswerText)
+        answered=true;
     }
     if (currentQuestion=== (questions.length-1)) {
         countdownAnswer();
