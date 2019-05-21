@@ -10,9 +10,23 @@ var questions = [{
     answerChoice: ["Michelangelo", "Leonardo da Vinci", "Donatello", "Jan van Eyck"],
     image: ["../images/"],
     answer: 1,
+    
+},
+{
+    question: "Who painted the Ghent Altarpiece?",
+    answerChoice: ["Michelangelo", "Leonardo da Vinci", "Donatello", "Jan van Eyck"],
+    image: ["../images/"],
+    answer: 3,
+},
+{
+    question: "Who drew the famous drawing of praying hands?",
+    answerChoice: ["Albrect Durer", "Leonardo da Vinci", "Donatello", "Jan van Eyck"],
+    image: ["../images/"],
+    answer: 0,
+
 }]
 //array for gifs after answer
-var gifs = ["1", "2","3",]
+var gifs = ["1.gif", "2.gif","3.gif","4.jpg"]
 //needed var
 var currentQuestion;
 var correct;
@@ -27,7 +41,7 @@ $("#start").on("click", function(){
 $(document).ready(function () {
     $("#start-over").hide();
     $("#time-box").hide();
-    $("#message-box").hide();
+//    $("#message-box").hide();
 });
 $("#start-over").on("click", function () {
     $("#start-over").hide();
@@ -50,6 +64,7 @@ function newQuestion() {
     $("#gif").empty();
     $("#message").empty();
     $("#time-box").show();
+
 
     $("#currentQuestionNum").html("Question #"+(currentQuestion +1) + " out of " + questions.length);
     $(".question").html(questions[currentQuestion].question)
@@ -123,8 +138,8 @@ function showCountdownAnswerNext() {
 function answerStage() {
     $ (".question").empty();
     $(".choices").empty();
-    $("#gif").html('<img src = "assets/images/' + gifs[currentQuestion] + '.gif" width = "400px">');  //" and ' are important here
-
+ //   $("#gif").html('<img src = "assets/images/' + gifs[currentQuestion] + '.gif" width = "400px">');  //" and ' are important here
+    $("#gif").html('<img src = "assets/images/' + gifs[currentQuestion] +'" width = "400px" >');
     $('#timeLeft').html("Time Remaining: " + seconds);
     var rightAnswerText= questions[currentQuestion].answerChoice[questions[currentQuestion].answer]
     var rightAnswerIndex= questions[currentQuestion].answer
