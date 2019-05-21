@@ -1,0 +1,37 @@
+body{
+    background: url("../images/whitey_@2X.png");
+    font-family: 'EB Garamond', serif;
+    font-weight: 500;
+    color: rgb(53, 53, 53)
+
+}
+
+.ks-container {
+  /*  background-color: grey  */
+    position: relative;
+    outline: solid 1px rgb(201, 201, 201);
+}
+.ks-container::after {
+    content:"";
+      background: url("../images/seamless_paper_texture.png");  
+      opacity:.4;
+      top:0;
+      left:0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -1;
+      box-shadow: 4px 4px 20px 0px rgb(61, 61, 61);
+}
+
+.ks-buttonContainer {
+    width: 100%;
+}
+.ks-buttonChoices {
+    background-color: rgb(255, 255, 255, .3);
+    color: black;
+    border: 1px solid rgb(61, 61, 61);
+    width: 40%;
+    margin:1%;
+
+}
