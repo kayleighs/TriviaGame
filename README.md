@@ -1,6 +1,6 @@
 # TriviaGame
 
-##Welcome to Gem Collector!
+##Welcome to the Renaissance Trivia Game!
 <br>
 [https://kayleighs.github.io/TriviaGame/]
 
