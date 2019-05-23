@@ -6,15 +6,15 @@ var questions = [{
     answer: 0,
 },
 {
-    question: "Who painted the Mona Lisa?",
-    answerChoice: ["Michelangelo", "Leonardo da Vinci", "Donatello", "Jan van Eyck"],
+    question: "Who painted the <i>Mona Lisa</i>?",
+    answerChoice: ["Rogier van der Weyden", "Leonardo da Vinci", "Boticelli", "Jan van Eyck"],
     image: ["../images/"],
     answer: 1,
     
 },
 {
-    question: "Who painted the Ghent Altarpiece?",
-    answerChoice: ["Michelangelo", "Leonardo da Vinci", "Donatello", "Jan van Eyck"],
+    question: "Who painted the <i>Ghent Altarpiece</i>?",
+    answerChoice: ["Boticelli", "Albrect Durer", "Raphael", "Jan van Eyck"],
     image: ["../images/"],
     answer: 3,
 },
@@ -24,16 +24,53 @@ var questions = [{
     image: ["../images/"],
     answer: 0,
 
+},
+{
+    question: "<i>Girl With the Pearl Earring</i> was painted by whom?",
+    answerChoice: ["Albrect Durer", "Leonardo da Vinci", "Vermeer", "Jan van Eyck"],
+    image: ["../images/"],
+    answer: 2,
+},
+{
+    question: "What famous figure did Donatello make in bronze?",
+    answerChoice: ["Adam", "Moses", "Apollo", "David"],
+    image: ["../images/"],
+    answer: 3,
+},
+{
+    question: "Michelangelo's <i>David</i>, his most iconic sculpture,is located where?",
+    answerChoice: ["The Louvre, Paris", "Galleria dell'Accademia, Florence", "Uffizi Gallery, Florence", "Borghese Gallery and Museum, Rome"],
+    image: ["../images/"],
+    answer: 1,
+},
+{
+    question: "<i>The Birth of Venus</i> was painted by whom?",
+    answerChoice: ["Boticelli", "Leonardo da Vinci", "Fra Angelica", "Jan van Eyck"],
+    image: ["../images/"],
+    answer: 0,
+},
+{
+    question: "Who painted the <i>Garden of Earthly Delights</i>?",
+    answerChoice: ["Pieter Bruegel the Elder", "Rogier van der Weyden", "Hieronymus Bosch", "Jan van Eyck"],
+    image: ["../images/"],
+     answer: 2,
+},
+{
+    question: "<i>Children's Games</i> was painting by which Flemish painter?",
+    answerChoice: ["Pieter Bruegel the Younger", "Hans Memling", "Pieter Bruegel the Elder", "Jan van Eyck"],
+    image: ["../images/"],
+    answer: 2,
+
 }]
 //array for gifs after answer
-var gifs = ["1.gif", "2.gif","3.gif","4.jpg"]
+var gifs = ["1.gif", "2.gif","3.gif","4.jpg", "5.gif","6.gif","7.gif","8.gif","9.gif","10.gif"]
 //needed var
 var currentQuestion;
 var correct;
 var incorrect;
 var answered;
 var unanswered;
-
+var userSelect;
 //on click for start
 $("#start").on("click", function(){
     $(this).hide();
@@ -43,7 +80,8 @@ $("#start").on("click", function(){
 $(document).ready(function () {
     $("#start-over").hide();
     $("#time-box").hide();
-//    $("#message-box").hide();
+    
+    $("#message-box").hide();
 });
 $("#start-over").on("click", function () {
     $("#start-over").hide();
@@ -86,13 +124,15 @@ function newQuestion() {
         userSelect = $(this).data("index")
         console.log(this);
         clearInterval(counter)
+        answered = true;
         answerStage();
+        
     });
 }
 
 //function to countdown at each question
 function countdown() {
-    seconds = 2; 
+    seconds = 15; 
     $('#timeLeft').html("Time Remaining: " + seconds);
     answered = true;
     counter = setInterval(showCountdown, 1000)
@@ -108,7 +148,7 @@ function showCountdown() {
 }
 
 function countdownAnswer() {
-    seconds = 1;
+    seconds = 5;
     $('#timeLeft').html("Time Remaining: " + seconds);
     answered = true;
     counter = setInterval(showCountdownAnswer, 1000)
@@ -123,7 +163,7 @@ function showCountdownAnswer() {
     }
 }
 function countdownAnswerNext() {
-    seconds = 1;
+    seconds = 5;
     $('#timeLeft').html("Time Remaining: " + seconds); 
     answered = true;
     counter = setInterval(showCountdownAnswerNext, 1000)
@@ -147,7 +187,7 @@ function answerStage() {
     var rightAnswerIndex= questions[currentQuestion].answer
     
     //check if correct or incorrect
-    if ((userSelect === rightAnswerIndex) && (answered == true)){
+    if ((userSelect == rightAnswerIndex) && (answered == true)){
         console.log("right!")
         correct +=1;
         $("#message").text("Correct!")
@@ -163,7 +203,7 @@ function answerStage() {
         $("#message").append("The correct answer is: " + rightAnswerText)
         answered=true;
     }
-    if (currentQuestion=== (questions.length-1)) {
+    if (currentQuestion == (questions.length-1)) {
         countdownAnswer();
     }
     else {
